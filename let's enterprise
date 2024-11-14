@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spin the Wheel</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+    .wheel-container {
+      text-align: center;
+    }
+    .wheel {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 5px solid #333;
+      position: relative;
+      overflow: hidden;
+    }
+    .wheel .segment {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      background: #eee;
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+    }
+    .segment:nth-child(1) { transform: rotate(0deg); background-color: #f44336; }
+    .segment:nth-child(2) { transform: rotate(90deg); background-color: #4caf50; }
+    .segment:nth-child(3) { transform: rotate(180deg); background-color: #2196f3; }
+    .segment:nth-child(4) { transform: rotate(270deg); background-color: #ffeb3b; }
+    .prize-labels {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #fff;
+      transform: rotate(0deg);
+      animation: spin 5s ease-out;
+    }
+    .wheel-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wheel-container">
+    <div class="wheel" id="wheel">
+      <div class="segment prize-labels">Batch</div>
+      <div class="segment prize-labels">Band</div>
+      <div class="segment prize-labels">T-shirt</div>
+      <div class="segment prize-labels">Chain</div>
+    </div>
+    <button class="wheel-button" onclick="spinWheel()">Spin the Wheel!</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    const prizes = ["Batch", "Band", "T-shirt", "Chain"];
+    const wheel = document.getElementById("wheel");
+
+    function spinWheel() {
+      const randomIndex = Math.floor(Math.random() * prizes.length);
+      const randomPrize = prizes[randomIndex];
+      const spinDegree = randomIndex * 90 + 720; // Spin multiple times for effect
+
+      wheel.style.transition = "transform 3s ease-out";
+      wheel.style.transform = `rotate(${spinDegree}deg)`;
+
+      setTimeout(() => {
+        document.getElementById("result").innerText = `Congratulations! You won a ${randomPrize}.`;
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
